@@ -31,7 +31,8 @@ export default function PortfolioParallax() {
     isAnimating.current = true;
     const sectionWidth = getSectionWidth();
     const targetX = -index * sectionWidth;
-    const bgTargetX = index * sectionWidth * 0.3; // Parallax effect
+    // 1:1 background movement - no parallax offset since each bg image maps to each section
+    const bgTargetX = index * sectionWidth; // Background moves exactly with sections
     
     // Animate sections container
     gsap.to(sectionsRef.current, {
@@ -45,7 +46,7 @@ export default function PortfolioParallax() {
       }
     });
     
-    // Animate background with parallax effect
+    // Animate background with 1:1 movement (no parallax)
     gsap.to(bgRef.current, {
       x: -bgTargetX,
       duration: 0.8,
@@ -150,7 +151,7 @@ export default function PortfolioParallax() {
       if (sectionsRef.current && bgRef.current) {
         const sectionWidth = getSectionWidth();
         const targetX = -currentSection.current * sectionWidth;
-        const bgTargetX = currentSection.current * sectionWidth * 0.3;
+        const bgTargetX = currentSection.current * sectionWidth; // 1:1 movement, no parallax
         
         gsap.set(sectionsRef.current, { x: targetX });
         gsap.set(bgRef.current, { x: -bgTargetX });
@@ -190,15 +191,17 @@ export default function PortfolioParallax() {
 
   // Initialize component and preload images
   useEffect(() => {
-    // Preload the PNG background image
+    // Preload the stitched background image
+    // Your setup: 12,800 × 1,440 pixels (2560px × 1440px per section)
+    // 5 sections stitched together: 2.5K QHD quality per section
     const img = new Image();
     img.onload = () => {
       setBgImageLoaded(true);
-      console.log('PNG background image loaded successfully');
+      console.log('Stitched 2.5K background image (12,800×1,440) loaded successfully');
     };
     img.onerror = () => {
       setBgImageLoaded(true);
-      console.log('PNG background image failed to load, using fallback');
+      console.log('Stitched background image failed to load, using fallback');
     };
     
     img.src = '/upscale_design.png';
