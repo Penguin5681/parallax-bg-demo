@@ -191,9 +191,6 @@ export default function PortfolioParallax() {
 
   // Initialize component and preload images
   useEffect(() => {
-    // Preload the stitched background image
-    // Your setup: 12,800 × 1,440 pixels (2560px × 1440px per section)
-    // 5 sections stitched together: 2.5K QHD quality per section
     const img = new Image();
     img.onload = () => {
       setBgImageLoaded(true);
@@ -233,7 +230,7 @@ export default function PortfolioParallax() {
           }
         }
       }, 100);
-    }, 1500); // Increased timeout to allow image loading
+    }, 1500); 
 
     return () => clearTimeout(timer);
   }, []);
