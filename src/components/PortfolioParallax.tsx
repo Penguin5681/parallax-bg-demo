@@ -5,18 +5,18 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-// Navbar menu items
-const navItems = ["Me", "Projects", "Skills", "Resume", "Contact"];
+// Navbar menu items - "Me" centered as default
+const navItems = ["Projects", "Skills", "Me", "Resume", "Contact"];
 
 export default function PortfolioParallax() {
-  const [activeSection, setActiveSection] = useState(0);
+  const [activeSection, setActiveSection] = useState(2); // Start with "Me" (center)
   const [isLoading, setIsLoading] = useState(true);
   const [bgImageLoaded, setBgImageLoaded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLUListElement>(null);
-  const currentSection = useRef(0);
+  const currentSection = useRef(2); // Start with "Me" (center)
   const isAnimating = useRef(false);
   
   // Calculate section width
@@ -205,17 +205,22 @@ export default function PortfolioParallax() {
     
     const timer = setTimeout(() => {
       setIsLoading(false);
-      // Set initial positions
+      // Set initial positions to show center section ("Me")
       if (sectionsRef.current && bgRef.current) {
-        gsap.set(sectionsRef.current, { x: 0 });
-        gsap.set(bgRef.current, { x: 0 });
+        const sectionWidth = window.innerWidth;
+        const centerSectionIndex = 2; // "Me" is at index 2
+        const targetX = -centerSectionIndex * sectionWidth;
+        const bgTargetX = centerSectionIndex * sectionWidth;
+        
+        gsap.set(sectionsRef.current, { x: targetX });
+        gsap.set(bgRef.current, { x: -bgTargetX });
       }
       
-      // Initialize underline position
+      // Initialize underline position for center item
       setTimeout(() => {
         if (navRef.current) {
           const navItems = navRef.current.children;
-          const activeItem = navItems[0] as HTMLElement;
+          const activeItem = navItems[2] as HTMLElement; // Center item ("Me")
           
           if (activeItem) {
             const itemRect = activeItem.getBoundingClientRect();
