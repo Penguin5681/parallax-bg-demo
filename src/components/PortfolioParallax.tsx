@@ -1,22 +1,22 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import LoadingExperience from "./LoadingExperience";
 
-// Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-// Navbar menu items - "Me" centered as default
 const navItems = ["Projects", "Skills", "Me", "Resume", "Contact"];
 
 export default function PortfolioParallax() {
-  const [activeSection, setActiveSection] = useState(2); // Start with "Me" (center)
+  const [activeSection, setActiveSection] = useState(2);
   const [isLoading, setIsLoading] = useState(true);
   const [bgImageLoaded, setBgImageLoaded] = useState(false);
+  const [showLoadingExperience, setShowLoadingExperience] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLUListElement>(null);
-  const currentSection = useRef(2); // Start with "Me" (center)
+  const currentSection = useRef(2);
   const isAnimating = useRef(false);
   
   // Calculate section width
@@ -189,6 +189,11 @@ export default function PortfolioParallax() {
     goToSection(index);
   }, [goToSection]);
 
+  // Handle loading experience completion
+  const handleLoadingComplete = useCallback(() => {
+    setShowLoadingExperience(false);
+  }, []);
+
   // Initialize component and preload images
   useEffect(() => {
     const img = new Image();
@@ -242,8 +247,13 @@ export default function PortfolioParallax() {
 
   return (
     <div className="portfolio-container" ref={containerRef}>
-      {/* Loading screen */}
-      {(isLoading || !bgImageLoaded) && (
+      {/* Loading Experience - New unique loading screen with Vanta clouds */}
+      {showLoadingExperience && (
+        <LoadingExperience onLoadingComplete={handleLoadingComplete} />
+      )}
+
+      {/* Original Loading screen - hidden when loading experience is active */}
+      {(isLoading || !bgImageLoaded) && !showLoadingExperience && (
         <div className="loading-screen">
           <div className="loader"></div>
           <p>{!bgImageLoaded ? 'Loading background...' : 'Loading experience...'}</p>
