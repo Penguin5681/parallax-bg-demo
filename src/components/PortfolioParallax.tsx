@@ -304,39 +304,7 @@ export default function PortfolioParallax() {
             key={item} 
             className="section-panel"
           >
-            <div className="content">
-              <h2>{item}</h2>
-              {item === "Me" && (
-                <div>
-                  <p>Welcome to my portfolio. I'm a passionate developer with a love for creating smooth, interactive experiences.</p>
-                  <p>Scroll horizontally to explore my work!</p>
-                </div>
-              )}
-              {item === "Projects" && (
-                <div>
-                  <p>Here are some of my featured projects. Each demonstrates my skills in different technologies.</p>
-                  <p>From web applications to mobile apps, I create digital solutions that make a difference.</p>
-                </div>
-              )}
-              {item === "Skills" && (
-                <div>
-                  <p>My technical skills include frontend and backend development, UX/UI design, and more.</p>
-                  <p>JavaScript, React, Node.js, Python, and many other technologies in my toolkit.</p>
-                </div>
-              )}
-              {item === "Resume" && (
-                <div>
-                  <p>Check out my professional experience and education background.</p>
-                  <p>Years of experience building scalable and performant applications.</p>
-                </div>
-              )}
-              {item === "Contact" && (
-                <div>
-                  <p>Let's connect! You can reach me through email or social media.</p>
-                  <p>Ready to collaborate on your next project.</p>
-                </div>
-              )}
-            </div>
+            
           </div>
         ))}
       </div>
