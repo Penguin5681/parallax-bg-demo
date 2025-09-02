@@ -37,7 +37,7 @@ export default function LoadingExperience({
   const vantaRef = useRef<HTMLDivElement>(null);
   const vantaEffect = useRef<VantaEffect | null>(null);
   const [isVisible, setIsVisible] = useState(true);
-  const DISPLAY_DURATION_MS = 5000; // keep it brief and simple
+  const DISPLAY_DURATION_MS = 8000; 
 
   useEffect(() => {
     // Initialize Vanta Clouds effect
@@ -82,13 +82,11 @@ export default function LoadingExperience({
 
   return (
     <div className={`loading-experience ${!isVisible ? "fade-out" : ""}`}>
-      {/* Vanta Clouds Background */}
       <div ref={vantaRef} className="loading-vanta-bg" />
 
-      {/* Minimal loading UI */}
       <div className="loading-content" role="status" aria-live="polite">
         <div className="spinner" aria-hidden="true" />
-        <p className="loading-text">Loading experience...</p>
+        <p className="loading-text">Loading portfolio...</p>
       </div>
     </div>
   );
